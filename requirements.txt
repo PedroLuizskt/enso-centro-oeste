@@ -1,0 +1,13 @@
+# Pipeline ENSO - Centro-Oeste
+# Instalacao: pip install -r requirements.txt
+# (ou, preferencialmente, o pacote editavel: pip install -e .)
+
+earthengine-api>=0.1.390   # extracao CHIRPS + ERA5-Land via Google Earth Engine
+geopandas>=0.14            # leitura dos shapefiles municipais e geometria
+pyogrio>=0.7               # backend rapido de I/O para o geopandas
+shapely>=2.0               # operacoes geometricas (simplify, centroid)
+pandas>=2.0                # manipulacao das series temporais
+numpy>=1.24
+scipy>=1.10                # Pearson/Spearman, regressao OLS
+requests>=2.31            # download dos indices da NOAA/CPC
+pyarrow>=14.0             # cache Parquet do clima municipal

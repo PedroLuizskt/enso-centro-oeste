@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enso-co"
+version = "0.5.1"
+description = "Teleconexao ENSO (RONI/ONI/SOI) x clima do Centro-Oeste do Brasil, no nivel municipal, com dashboard WebMap."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Pedro Luiz R. Vaz de Melo" }]
+keywords = ["ENSO", "El Nino", "RONI", "climatologia", "GIS", "Earth Engine", "Centro-Oeste"]
+
+dependencies = [
+    "earthengine-api>=0.1.390",
+    "geopandas>=0.14",
+    "pyogrio>=0.7",
+    "shapely>=2.0",
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "requests>=2.31",
+    "pyarrow>=14.0",
+]
+
+[project.scripts]
+enso-co = "enso_co.cli:main"
+
+[project.urls]
+Repository = "https://github.com/PedroLuizskt/enso-centro-oeste"
+
+[tool.setuptools.packages.find]
+where = ["src"]
