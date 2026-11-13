@@ -643,8 +643,19 @@ function roniYearMean(year){const vs=RONI.dates.map((d,i)=>({y:d.slice(0,4),v:RO
 /* ==================== MAPA ==================== */
 function initMap(){
   map=L.map('map',{center:CENTER,zoom:5,zoomControl:true,preferCanvas:true});
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    {attribution:'&copy; OpenStreetMap &copy; CARTO',opacity:.9,maxZoom:12}).addTo(map);
+  // Mapas-base publicos da Esri, sem chave de API: escuro (padrao) e satelite
+  const ESRI='https://{s}.arcgisonline.com/ArcGIS/rest/services/', ESRI_SUB=['server','services'];
+  const baseEscuro=L.layerGroup([
+    L.tileLayer(ESRI+'Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+      {subdomains:ESRI_SUB,maxNativeZoom:16,maxZoom:12,opacity:.9,
+       attribution:'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors'}),
+    L.tileLayer(ESRI+'Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+      {subdomains:ESRI_SUB,maxNativeZoom:16,maxZoom:12,opacity:.9})
+  ]).addTo(map);
+  const baseSatelite=L.tileLayer(ESRI+'World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    {subdomains:ESRI_SUB,maxNativeZoom:18,maxZoom:12,opacity:.85,
+     attribution:'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics and the GIS User Community'});
+  L.control.layers({'Mapa escuro':baseEscuro,'Satélite (Esri)':baseSatelite},null,{position:'topright'}).addTo(map);
   map.attributionControl.setPrefix('');
   buildGeoLayer();
   try{map.fitBounds(geoLayer.getBounds().pad(0.06));}catch(e){}
